@@ -1,0 +1,12 @@
+{% extends "rhetoric/layout.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="judgeyou-title">
+        <img src="{% static 'img/judgeyou.png' %}">
+        <img src="{% static 'img/judgeyou mascot.png' %}">
+        <form id="uploadFile">
+            <input type="text" placeholder="Upload here...">
+        </form>
+    </div>
+{% endblock %}

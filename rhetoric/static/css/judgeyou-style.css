@@ -1,0 +1,57 @@
+*{
+    margin: 0;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+.judgeyou-main{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: #e0ecec;
+}
+.judgeyou-name{
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 24pt;
+}
+.judgeyou-title{
+    width: 100vw;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.judgeyou-title > a#goToUpload{
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 10px;
+
+    border-radius: 10px;
+    background:#ff9100;
+}
+.judgeyou-title > a#goToUpload > img{
+    width: 60%;
+    height: 60%;
+}
+.judgeyou-title > img, .judgeyou-title > form#uploadFile{
+    margin: 10px;
+}
+form#uploadFile > input{
+    width: 425px;
+    height: 38px;
+
+    font-size: 16pt;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    border-radius: 10px;
+    border: 1px solid grey;
+    outline: none;
+}

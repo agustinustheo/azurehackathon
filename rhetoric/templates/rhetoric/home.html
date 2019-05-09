@@ -1,0 +1,11 @@
+{% extends "rhetoric/layout.html" %}
+{% load staticfiles %}
+
+{% block content %}
+    <div class="judgeyou-title">
+        <img src="{% static 'img/judgeyou.png' %}">
+        <a id="goToUpload" href="/upload">
+            <img src="{% static 'img/upload.png' %}">
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JudgeYou - Rhetoric Class</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+        <link rel='stylesheet' href="{% static 'css/judgeyou-style.css' %}">
+    </head>
+    <body>
+        <header>
+            
+        </header>
+        <section class="judgeyou-main">
+            <span class="judgeyou-name">
+                Hi, John Doe
+            </span>
+            {% block content %}
+            {% endblock %}
+        </section>
+    </body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{% static 'rhetoric/js/script.js' %}"></script>
+</html>
