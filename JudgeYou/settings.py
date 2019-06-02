@@ -26,6 +26,7 @@ SECRET_KEY = '#m_gzm9(y(mpj1u*g)^c3h$67ui+pb6j!w4=+73$nno^8alowm'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'localhost',
     'judgeyou.herokuapp.com',
 ]
 
@@ -125,3 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Local Root
+RHETORIC_APP_ROOT = os.path.join(os.path.dirname(BASE_DIR), "JudgeYou", "rhetoric", "apis" )
+
+# Heroku Root
+# RHETORIC_APP_ROOT = os.path.join(os.path.dirname(BASE_DIR), "app",  "pyluv_api", "smsclassifiermodel" )

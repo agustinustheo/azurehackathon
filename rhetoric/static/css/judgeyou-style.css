@@ -40,10 +40,10 @@
     width: 60%;
     height: 60%;
 }
-.judgeyou-title > img, .judgeyou-title > form#uploadFile{
+.judgeyou-title > img, .judgeyou-title > form#getYoutubeUrl{
     margin: 10px;
 }
-form#uploadFile > input{
+form#getYoutubeUrl > input{
     width: 425px;
     height: 38px;
 

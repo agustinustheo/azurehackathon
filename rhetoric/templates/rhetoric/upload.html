@@ -5,8 +5,30 @@
     <div class="judgeyou-title">
         <img src="{% static 'img/judgeyou.png' %}">
         <img src="{% static 'img/judgeyou mascot.png' %}">
-        <form id="uploadFile">
-            <input type="text" placeholder="Upload here...">
+        <form id="getYoutubeUrl">
+          <input type="text" name="param_1" placeholder="Enter youtube url here..">
         </form>
     </div>
+
+    <script>
+      let getYoutubeUrl = document.getElementById('getYoutubeUrl');
+      
+      getYoutubeUrl.onsubmit = function(e){
+          e.preventDefault();
+      
+          let param_1 = getYoutubeUrl.getElementsByTagName("input")[0].value;
+      
+          axios.get('/review', {
+              params: {
+                param_1 : param_1
+              }
+          })
+          .then(response => {
+              console.log(response.data);
+          })
+          .catch(ex => {
+              console.log(ex);
+          })
+      }
+    </script>
 {% endblock %}

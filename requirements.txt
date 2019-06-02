@@ -17,7 +17,7 @@ msgpack==0.5.6
 msgpack-numpy==0.4.3.2
 murmurhash==1.0.1
 nltk==3.4
-numpy==1.15.4
+numpy
 pandas==0.23.4
 plac==0.9.6
 preshed==2.0.1
@@ -39,13 +39,15 @@ tqdm==4.28.1
 ujson==1.35
 urllib3==1.24.1
 wrapt==1.10.11
-beautifulsoup4
 selenium>=2.44.0,<3.0.0
 unidecode
 vcrpy
 future
 fake-useragent
-newspaper3k
 sklearn
-git+https://github.com/abenassi/Google-Search-API
 psycopg2
+opencv-python==3.4.2.16
+imutils==0.5.2
+youtube_dl==2019.5.11
+tensorflow==1.13.1
+Keras==2.2.4
