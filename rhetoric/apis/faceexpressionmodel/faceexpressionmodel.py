@@ -1,4 +1,4 @@
-from JudgeYou.settings import RHETORIC_APP_ROOT
+from JudgeYou.settings import RHETORIC_APP_ROOT, HEROKU_RHETORIC_APP_ROOT
 from imutils.video import VideoStream
 from keras.preprocessing import image
 from django.http import HttpResponse
@@ -6,11 +6,13 @@ import tensorflow as tf
 import numpy as np
 import youtube_dl
 import imutils
-import json
 import time
 import cv2
 import os
-MODEL_FOLDER = os.path.join(RHETORIC_APP_ROOT , 'faceexpressionmodel', 'model')
+if os.path.isdir(RHETORIC_APP_ROOT):
+	MODEL_FOLDER = os.path.join(RHETORIC_APP_ROOT , 'faceexpressionmodel', 'model')
+elif os.path.isdir(HEROKU_RHETORIC_APP_ROOT):
+	MODEL_FOLDER = os.path.join(HEROKU_RHETORIC_APP_ROOT , 'faceexpressionmodel', 'model')
 
 def process_video(video_url):
 	try:
@@ -56,7 +58,7 @@ def process_video(video_url):
 
 			# I want the lowest resolution, so I set resolution as 144p
 			if f.get('format_note',None) == '144p':
-				
+					
 				#get the video url
 				url = f.get('url',None)
 
@@ -113,15 +115,8 @@ def process_video(video_url):
 						box = detections[0, 0, i, 3:7] * np.array([w, h, w, h])
 						(startX, startY, endX, endY) = box.astype("int")
 				
-						# draw the bounding box of the face along with the associated
-						# probability
-						text = "{:.2f}%".format(confidence * 100)
 						y = startY - 10 if startY - 10 > 10 else startY + 10
 
-						# draw rectangle on face
-						cv2.rectangle(frame, (startX, startY), (endX, endY), (0, 0, 255), 2)
-						# write the percentage text
-						# cv2.putText(frame, text, (startX, y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 0, 255), 2)
 
 					if sum_confidence < 0.6:
 						emotion_end = float(frame_count)/fps
@@ -169,62 +164,52 @@ def process_video(video_url):
 							emotion_end = float(frame_count)/fps
 							emotion_timestamp.append( {'start_time': emotion_start ,'end_time': emotion_end ,'emotion': curr_emotion} )
 							break
-						
-						# write emotion text on image
-						cv2.putText(frame, emotion, (int(startX), int(startY)), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
 
 					flag_for_testing = 1
 
-			if flag_for_testing == 1:
-				break
+				if flag_for_testing == 1:
+					break
 
-			vs.release()
+		vs.release()
 
-			tense_count = 0
-			micro_tense_count = 0
-			anger_count = 0
-			micro_anger_count = 0
-			for x in emotion_timestamp:
-				if x["end_time"] - x["start_time"] >= 0.5 and x["emotion"] == 'tense':
-					tense_count += 1
+		tense_count = 0
+		micro_tense_count = 0
+		anger_count = 0
+		micro_anger_count = 0
+		for x in emotion_timestamp:
+			if x["end_time"] - x["start_time"] >= 0.5 and x["emotion"] == 'tense':
+				tense_count += 1
 
-				if x["end_time"] - x["start_time"] >= 0.1 and x["end_time"] - x["start_time"] < 0.5 and x["emotion"] == 'tense':
-					micro_tense_count += 1
-				
-				if x["end_time"] - x["start_time"] >= 0.5 and x["emotion"] == 'angry':
-					anger_count += 1
-				
-				if x["end_time"] - x["start_time"] >= 0.1 and x["end_time"] - x["start_time"] < 0.5 and x["emotion"] == 'angry':
-					micro_anger_count += 1
-
+			if x["end_time"] - x["start_time"] >= 0.1 and x["end_time"] - x["start_time"] < 0.5 and x["emotion"] == 'tense':
+				micro_tense_count += 1
 			
-			return_json = json.dumps(
-				{
-					"result": 
-					{
-						"tense_count": tense_count,
-						"anger_count": anger_count,
-						"micro_tense_count": micro_tense_count,
-						"micro_anger_count": micro_anger_count
-					}
-				}
-			)
+			if x["end_time"] - x["start_time"] >= 0.5 and x["emotion"] == 'angry':
+				anger_count += 1
+			
+			if x["end_time"] - x["start_time"] >= 0.1 and x["end_time"] - x["start_time"] < 0.5 and x["emotion"] == 'angry':
+				micro_anger_count += 1
 
-			return return_json
+		
+		result = {
+			"tense_count": tense_count,
+			"anger_count": anger_count,
+			"micro_tense_count": micro_tense_count,
+			"micro_anger_count": micro_anger_count,
+			"error":False
+		}
+
+		return result
 				
 	except Exception as e:
-		err_msg = "Error: " + str(e)
+		err_msg = { 
+			"err_msg":str(e),
+			"error": True
+		}
 
-		return_json = json.dumps(
-			{
-				"error": err_msg
-			}
-		)
-
-		return return_json
+		return err_msg
 
 
 def main(request):
     video_url = request.GET.get('param_1')
     result = process_video(video_url)
-    return HttpResponse(result)
+    return result

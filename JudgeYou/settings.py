@@ -128,7 +128,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Local Root
-# RHETORIC_APP_ROOT = os.path.join(os.path.dirname(BASE_DIR), "JudgeYou", "rhetoric", "apis" )
+RHETORIC_APP_ROOT = os.path.join(os.path.dirname(BASE_DIR), "JudgeYou", "rhetoric", "apis" )
 
 # Heroku Root
-RHETORIC_APP_ROOT = os.path.join(os.path.dirname(BASE_DIR), "app",  "rhetoric", "apis" )
+HEROKU_RHETORIC_APP_ROOT = os.path.join(os.path.dirname(BASE_DIR), "app",  "rhetoric", "apis" )
