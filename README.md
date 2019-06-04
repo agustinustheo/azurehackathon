@@ -7,6 +7,9 @@ This is tested on Ubuntu. Please refer to OpenCV docs for other linux distros
 - Create virtual env name judgeyou  
   <b><i>important!: you must name the env judgeyou if you use linux-installation.sh</i></b>
     ```
+    # --- Install python3 dev
+    sudo apt-get install python3-dev
+
     # --- install virtualenv and virtualenvwrapper
     wget https://bootstrap.pypa.io/get-pip.py
     sudo python3 get-pip.py
