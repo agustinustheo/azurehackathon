@@ -32,6 +32,7 @@ def process_video(video_url):
 
 		# get video formats available
 		formats = info_dict.get('formats',None)
+		title = info_dict.get('title', None)
 
 		flag_for_testing = 0
 
@@ -56,7 +57,7 @@ def process_video(video_url):
 			if flag_for_testing == 1:
 				break
 
-			# I want the lowest resolution, so I set resolution as 144p
+			# set resolution as 144p
 			if f.get('format_note',None) == '144p':
 					
 				#get the video url
@@ -173,29 +174,90 @@ def process_video(video_url):
 		vs.release()
 
 		tense_count = 0
+		tense_timestamp = {
+			"start_time": 0,
+			"end_time": 0
+		}
 		micro_tense_count = 0
+		micro_tense_timestamp = {
+			"1":{
+				"start_time": 0,
+				"end_time": 0
+			},
+			"2":{
+				"start_time": 0,
+				"end_time": 0
+			},
+			"3":{
+				"start_time": 0,
+				"end_time": 0
+			}
+		}
 		anger_count = 0
+		anger_timestamp = {
+			"start_time": 0,
+			"end_time": 0
+		}
 		micro_anger_count = 0
+		micro_anger_timestamp = {
+			"1":{
+				"start_time": 0,
+				"end_time": 0
+			},
+			"2":{
+				"start_time": 0,
+				"end_time": 0
+			},
+			"3":{
+				"start_time": 0,
+				"end_time": 0
+			}
+		}
 		for x in emotion_timestamp:
 			if x["end_time"] - x["start_time"] >= 0.5 and x["emotion"] == 'tense':
 				tense_count += 1
+				if tense_timestamp["end_time"] - tense_timestamp["start_time"] < x["end_time"] - x["start_time"]:
+					tense_timestamp["start_time"] = x["start_time"]
+					tense_timestamp["end_time"] = x["end_time"]
 
 			if x["end_time"] - x["start_time"] >= 0.1 and x["end_time"] - x["start_time"] < 0.5 and x["emotion"] == 'tense':
 				micro_tense_count += 1
+				if micro_tense_timestamp["1"]["end_time"] - micro_tense_timestamp["1"]["start_time"] < x["end_time"] - x["start_time"]:
+					micro_tense_timestamp["3"]["start_time"] = micro_tense_timestamp["2"]["start_time"]
+					micro_tense_timestamp["3"]["end_time"] = micro_tense_timestamp["2"]["end_time"]
+					micro_tense_timestamp["2"]["start_time"] = micro_tense_timestamp["1"]["start_time"]
+					micro_tense_timestamp["2"]["end_time"] = micro_tense_timestamp["1"]["end_time"]
+					micro_tense_timestamp["1"]["start_time"] = x["start_time"]
+					micro_tense_timestamp["1"]["end_time"] = x["end_time"]
 			
 			if x["end_time"] - x["start_time"] >= 0.5 and x["emotion"] == 'angry':
 				anger_count += 1
+				if anger_timestamp["end_time"] - anger_timestamp["start_time"] < x["end_time"] - x["start_time"]:
+					anger_timestamp["start_time"] = x["start_time"]
+					anger_timestamp["end_time"] = x["end_time"]
 			
 			if x["end_time"] - x["start_time"] >= 0.1 and x["end_time"] - x["start_time"] < 0.5 and x["emotion"] == 'angry':
 				micro_anger_count += 1
+				if micro_anger_timestamp["1"]["end_time"] - micro_anger_timestamp["1"]["start_time"] < x["end_time"] - x["start_time"]:
+					micro_anger_timestamp["3"]["start_time"] = micro_anger_timestamp["2"]["start_time"]
+					micro_anger_timestamp["3"]["end_time"] = micro_anger_timestamp["2"]["end_time"]
+					micro_anger_timestamp["2"]["start_time"] = micro_anger_timestamp["1"]["start_time"]
+					micro_anger_timestamp["2"]["end_time"] = micro_anger_timestamp["1"]["end_time"]
+					micro_anger_timestamp["1"]["start_time"] = x["start_time"]
+					micro_anger_timestamp["1"]["end_time"] = x["end_time"]
 
 		
 		result = {
+			"title": title,
 			"tense_count": tense_count,
 			"anger_count": anger_count,
 			"micro_tense_count": micro_tense_count,
 			"micro_anger_count": micro_anger_count,
-			"error":False
+			"tense_timestamp": tense_timestamp,
+			"anger_timestamp": anger_timestamp,
+			"micro_tense_timestamp": micro_tense_timestamp,
+			"micro_anger_timestamp": micro_anger_timestamp,
+			"error": False
 		}
 
 		return result
@@ -209,7 +271,6 @@ def process_video(video_url):
 		return err_msg
 
 
-def main(request):
-    video_url = request.GET.get('param_1')
+def main(video_url):
     result = process_video(video_url)
     return result

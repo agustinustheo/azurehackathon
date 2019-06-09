@@ -80,10 +80,15 @@ WSGI_APPLICATION = 'JudgeYou.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd13c3rg8kreco4',
-        'USER': 'fozmzgmqajqgmv',
-        'PASSWORD': 'ce1f731dab7d32cf055e8516aeffbb2127cc779acf0ec8ec62d55304d4ed999e',
-        'HOST': 'ec2-54-197-234-117.compute-1.amazonaws.com',
+        # 'NAME': 'd13c3rg8kreco4',
+        # 'USER': 'fozmzgmqajqgmv',
+        # 'PASSWORD': 'ce1f731dab7d32cf055e8516aeffbb2127cc779acf0ec8ec62d55304d4ed999e',
+        # 'HOST': 'ec2-54-197-234-117.compute-1.amazonaws.com',
+        # 'PORT': '5432'
+        'NAME': 'judgeyou_dev',
+        'USER': 'postgres',
+        'PASSWORD': '230899',
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     }
 }

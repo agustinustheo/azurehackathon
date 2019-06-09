@@ -46,7 +46,6 @@ future
 fake-useragent
 sklearn
 psycopg2
-opencv-python==3.4.2.16
 imutils==0.5.2
 youtube_dl==2019.5.11
 tensorflow==1.13.1

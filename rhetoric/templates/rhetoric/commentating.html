@@ -2,9 +2,10 @@
 {% load staticfiles %}
 
 {% block content %}
+    <input id="yt_id" type="hidden" value="{{review.yt_id}}">
     <div class="judgeyou-title">
-        <div>
-            <img src="{% static 'img/judgeyou mascot.png' %}">
-        </div>
+        <div id="ytplayer"></div>
     </div>
+
+    <script src="{% static 'js/commentating.js' %}"></script>
 {% endblock %}

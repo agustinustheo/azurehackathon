@@ -1,4 +1,4 @@
-{% extends "rhetoric/layout.html" %}
+  {% extends "rhetoric/layout.html" %}
 {% load staticfiles %}
 
 {% block content %}
@@ -10,25 +10,6 @@
         </form>
     </div>
 
-    <script>
-      let getYoutubeUrl = document.getElementById('getYoutubeUrl');
-      
-      getYoutubeUrl.onsubmit = function(e){
-          e.preventDefault();
-      
-          let param_1 = getYoutubeUrl.getElementsByTagName("input")[0].value;
-      
-          axios.get('/review', {
-              params: {
-                param_1 : param_1
-              }
-          })
-          .then(response => {
-              console.log(response.data);
-          })
-          .catch(ex => {
-              console.log(ex);
-          })
-      }
-    </script>
+
+    <script src="{% static 'js/upload.js' %}"></script>
 {% endblock %}
