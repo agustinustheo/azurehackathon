@@ -97,6 +97,8 @@ axios.get('/getCommentary', {
 .then(response => {
     loadScript();
     for (var x in response.data) {
+        let container = document.createElement('div');
+        container.setAttribute("class", "judgeyou-container");
         let element = document.createElement('div');
         element.setAttribute("class", "judgeyou-comment-box");
         let julie = document.createElement('img');
@@ -112,10 +114,11 @@ axios.get('/getCommentary', {
                             x.toString().substring(0, x.indexOf("_timestamp")),
                             key
                         );
-                        if(key == 1){
+                        if(key == 3){
                             element.innerHTML = response.data[x.toString().substring(0, x.indexOf("_timestamp"))];
                             let createdDiv = document.getElementById(x.toString().substring(0, x.indexOf("_timestamp")).toString() + "1");
-                            createdDiv.parentNode.insertBefore(element, createdDiv);
+                            createdDiv.parentNode.appendChild(container);
+                            container.appendChild(element);
                             element.parentNode.insertBefore(julie, element);
                         }
                     }
@@ -132,7 +135,8 @@ axios.get('/getCommentary', {
                     );
                     element.innerHTML = response.data[x.toString().substring(0, x.indexOf("_timestamp"))];
                     let createdDiv = document.getElementById(x.toString().substring(0, x.indexOf("_timestamp")).toString() + "0");
-                    createdDiv.parentNode.insertBefore(element, createdDiv);
+                    createdDiv.parentNode.appendChild(container);
+                    container.appendChild(element);
                     element.parentNode.insertBefore(julie, element);
                 }
             }

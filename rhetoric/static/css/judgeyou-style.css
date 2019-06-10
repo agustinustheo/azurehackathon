@@ -14,6 +14,8 @@
     top: 15px;
     right: 25px;
     font-size: 24pt;
+    color: black;
+    text-decoration: none;
 }
 .judgeyou-title{
     width: 100vw;
@@ -109,4 +111,28 @@ form#getYoutubeUrl > input{
     border-radius: 5px;
     box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
     font-size: 16pt;
+}
+.judgeyou-play-button{
+    background: orangered;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16pt;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+}
+#ytplayer > div.judgeyou-container{
+    display: grid;
+    grid-template-columns: 85px calc(100% - 85px);
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 100px;
+}
+.judgeyou-play-button:hover{
+    background: rgb(204, 64, 13);
+}
+.judgeyou-result-container{
+    margin-top: 120px;
 }

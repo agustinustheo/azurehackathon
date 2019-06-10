@@ -3,44 +3,50 @@
 
 {% block content %}
 
-  {% for commentary in object_list %}
-    {% if commentary.finish_processing %}
-      <a class="judgeyou-reviews" href="/commentating/{{commentary.yt_id}}">
-        <b>
-          {{commentary.title}}
-        </b>
-        <span>
-          Youtube ID : {{commentary.yt_id}},
-        </span>
-        <span>
-          Review : <span class="finished">Finished</span>
-        </span>
-      </a>
-    {% else %}
-      {% if commentary.error == "" %}
-        <div class="judgeyou-reviews">
+  <a href="/" class="judgeyou-name">
+    Back To Home
+  </a>
+  
+  <div class="judgeyou-result-container">
+    {% for commentary in object_list %}
+      {% if commentary.finish_processing %}
+        <a class="judgeyou-reviews" href="/commentating/{{commentary.yt_id}}">
           <b>
-            {{commentary.yt_id}}
+            {{commentary.title}}
           </b>
           <span>
-            Review : <span class="processing">Still processing </span>
+            Youtube ID : {{commentary.yt_id}},
           </span>
-          <img height="11" src="{% static 'img/loading.gif' %}">
-        </div>
+          <span>
+            Review : <span class="finished">Finished</span>
+          </span>
+        </a>
       {% else %}
-        <div class="judgeyou-reviews">
-          <b>
-            {{commentary.yt_id}}
-          </b>
-          <span>
-            Review : <span class="error">Error reviewing</span>,
-          </span>
-          <span>
-            Error : {{commentary.error}}
-          </span>
-        </div>
+        {% if commentary.error == "" %}
+          <div class="judgeyou-reviews">
+            <b>
+              {{commentary.yt_id}}
+            </b>
+            <span>
+              Review : <span class="processing">Still processing </span>
+            </span>
+            <img height="11" src="{% static 'img/loading.gif' %}">
+          </div>
+        {% else %}
+          <div class="judgeyou-reviews">
+            <b>
+              {{commentary.yt_id}}
+            </b>
+            <span>
+              Review : <span class="error">Error reviewing</span>,
+            </span>
+            <span>
+              Error : {{commentary.error}}
+            </span>
+          </div>
+        {% endif %}
       {% endif %}
-    {% endif %}
-  {% endfor %}
+    {% endfor %}
+  </div>
 
 {% endblock %}

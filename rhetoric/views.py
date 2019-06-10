@@ -70,11 +70,6 @@ def pending(request):
     return HttpResponse("Failed: Request method not allowed")
 
 def getCommentary(request):
-    print(request.GET.get('id'))
-    print("")
-    print("")
-    print("")
-    print("")
     review = Review.objects.get(yt_id=request.GET.get('id'))
     
     tense = ""
