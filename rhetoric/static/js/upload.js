@@ -23,10 +23,25 @@ getYoutubeUrl.onsubmit = function(e){
 
     let url = getYoutubeUrl.getElementsByTagName("input")[0].value;
 
-    let id = url.substring(
-    parseInt(url.indexOf("v=") + 2), 
-    url.length
-    );
+
+    let id = ""
+    if(url.indexOf("&") != -1){
+        id = url.substring(
+            parseInt(url.indexOf("v=") + 2), 
+            url.indexOf("&")
+        );
+        url = url.substring(
+            0, 
+            url.indexOf("&")
+        );
+    }
+    else{
+        id = url.substring(
+            parseInt(url.indexOf("v=") + 2), 
+            url.length
+        );
+    }
+
     formData.append("id", id);
 
     axios({
