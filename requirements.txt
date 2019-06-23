@@ -27,7 +27,6 @@ pyreadline==2.1
 python-dateutil==2.7.5
 pytz==2018.7
 regex==2018.1.10
-requests==2.21.0
 scikit-learn==0.20.2
 scipy==1.2.0
 singledispatch==3.4.0.3
@@ -50,3 +49,5 @@ imutils==0.5.2
 youtube_dl==2019.5.11
 tensorflow==1.13.1
 Keras==2.2.4
+deepspeech
+requests
