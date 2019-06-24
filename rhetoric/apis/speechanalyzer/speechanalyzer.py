@@ -21,7 +21,7 @@ def process_speech(video_url):
     try:
         r = requests.get('http://api.grammarbot.io/v2/check?api_key=' + GRAMMARBOT_API_KEY + '&text=' + PUNCTUATED_TEXT + '&language=en')
         RESULT = r.json()
-        # print(RESULT)
+        return RESULT
     except:
         context = { 'error_msg': 'There\'s an error with grammarbot, try analyzing with google API instead' }
         return context

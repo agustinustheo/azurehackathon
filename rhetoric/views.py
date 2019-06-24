@@ -1,7 +1,7 @@
 import json
 from . import apis
 from rhetoric.models import Review
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response, get_object_or_404
 import rhetoric.apis.faceexpressionmodel.faceexpressionmodel as facescoremodel
 import rhetoric.apis.speechanalyzer.speechanalyzer as speechscoremodel
@@ -15,8 +15,8 @@ def upload(request):
   return render(request, 'rhetoric/upload.html')
 
 def speech(request):
-    result = speechscoremodel.main('2X0-BOCIU2o')
-    return HttpResponse(result)
+    result = speechscoremodel.main('56blGsmWd9k')
+    return JsonResponse(result)
 
 def commentating(request, yt_id):
   review_details = get_object_or_404(Review, yt_id=yt_id)
