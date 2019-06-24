@@ -33,10 +33,10 @@ N_FEATURES = 26
 # Size of the context window used for producing timesteps in the input vector
 N_CONTEXT = 9
 
-MODEL = 'speech_analyzer/judgeyou_nlp/models/output_graph.pbmm'
-ALPHABET = 'speech_analyzer/judgeyou_nlp/models/alphabet.txt'
-LM = 'speech_analyzer/judgeyou_nlp/models/lm.binary'
-TRIE = 'speech_analyzer/judgeyou_nlp/models/trie'
+MODEL = 'rhetoric/apis/speechanalyzer/models/output_graph.pbmm'
+ALPHABET = 'rhetoric/apis/speechanalyzer/models/alphabet.txt'
+LM = 'rhetoric/apis/speechanalyzer/models/lm.binary'
+TRIE = 'rhetoric/apis/speechanalyzer/models/trie'
 
 def convert_samplerate(audio_path):
     sox_cmd = 'sox {} --type raw --bits 16 --channels 1 --rate 16000 --encoding signed-integer --endian little --compression 0.0 --no-dither - '.format(quote(audio_path))
@@ -50,12 +50,13 @@ def convert_samplerate(audio_path):
     return 16000, np.frombuffer(output, np.int16)
 
 def write_text_to_file(text):
-    file_obj = open(r'speech_analyzer/judgeyou_nlp/speech_to_text_result/text_result.txt', 'w+')
+    file_obj = open(r'rhetoric/apis/speechanalyzer/speech_to_text_result/text_result.txt', 'w+')
     file_obj.write(text)
     file_obj.close()
 
 
 def extract_text(AUDIO):
+    print(AUDIO)
     ds = Model(MODEL, N_FEATURES, N_CONTEXT, ALPHABET, BEAM_WIDTH)
     ds.enableDecoderWithLM(ALPHABET, LM, TRIE, LM_ALPHA, LM_BETA)
 

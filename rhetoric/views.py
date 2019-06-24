@@ -4,6 +4,7 @@ from rhetoric.models import Review
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response, get_object_or_404
 import rhetoric.apis.faceexpressionmodel.faceexpressionmodel as facescoremodel
+import rhetoric.apis.speechanalyzer.speechanalyzer as speechscoremodel
 
 # Create your views here.
 
@@ -12,6 +13,10 @@ def home(request):
 
 def upload(request):
   return render(request, 'rhetoric/upload.html')
+
+def speech(request):
+    result = speechscoremodel.main('2X0-BOCIU2o')
+    return HttpResponse(result)
 
 def commentating(request, yt_id):
   review_details = get_object_or_404(Review, yt_id=yt_id)

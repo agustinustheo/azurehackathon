@@ -1,5 +1,6 @@
 import os
 import youtube_dl
+from JudgeYou.settings import RHETORIC_APP_ROOT
 
 # VIDEO_URL = 'https://www.youtube.com/watch?v=6cgxSL926N8'
 
@@ -34,7 +35,7 @@ YDL_OPTS = {
         'preferredcodec': 'wav',
         'preferredquality': '192',
     }],
-    'outtmpl': 'speech_analyzer/judgeyou_nlp/downloads/%(uploader)s %(title)s.%(ext)s',
+    'outtmpl': 'rhetoric/apis/speechanalyzer/downloads/%(uploader)s %(title)s.%(ext)s',
     'logger': MyLogger(),
     'progress_hooks': [my_hook],
 }
@@ -46,5 +47,6 @@ def get_audio(VIDEO_URL):
     ydl.download([VIDEO_URL])
     TITLE = INFO_DICT['title']
     UPLOADER = INFO_DICT['uploader']
-    AUDIO_FILE = 'speech_analyzer/judgeyou_nlp/downloads/{uploader} {title}.{ext}'.format(uploader=UPLOADER, title=TITLE, ext='wav')
+    AUDIO_FILE = RHETORIC_APP_ROOT + '/speechanalyzer/downloads/{uploader} {title}.{ext}'.format(uploader=UPLOADER, title=TITLE, ext='wav')
+    # AUDIO_FILE = 'rhetoric/apis/speechanalyzer/downloads/{uploader} {title}.{ext}'.format(uploader=UPLOADER, title=TITLE, ext='wav')
     return AUDIO_FILE
